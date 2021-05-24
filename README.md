@@ -21,6 +21,10 @@ model saved dir: ./Saved
 
 model prediction saved dir: ./results
 
+The clean data could be found in 
+
+[Data Sharing](https://drive.google.com/drive/folders/1-YcEcRP6IObhT8ojes9L29Z54P-japjJ?usp=sharing)
+
 ## Scripts for runing the experiments
 Download and preprocess the GDSC dataset:
 ```

@@ -40,7 +40,7 @@ python results.py > results_ppo.txt
 PPO experiment with TCGA cohort
 
 ```
- python gen_TCGA_data.py
+ python load_TCGA.py
  
  python results_TCGA.py ./TCGA/TCGA_BRCA.npz 
 ```

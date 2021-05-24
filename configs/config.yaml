@@ -1,0 +1,34 @@
+# "methods" takes a KRL, LKRL, KBMTL, KRR, RF, EN
+methods: ['EN','KRR','CaDRRes','KRL','ppo']
+# k-fold cross validation
+# (we used nfolds: 3 in the KRL paper )
+nfolds: 5
+# "data" takes one of GEX, WES, CNV, MET
+data: GDSC 
+seed: 1234
+
+# ranges of hyper-parameter values optimized using grid search on the training set
+# (see Supplementary data of the KRL paper for details)
+krl_lambdas: [0.001]
+krl_gammas: [0.001]
+kbmtl_alphas: [0.001]
+kbmtl_betas: [0.001]
+kbmtl_gammas: [0.001]
+krr_alphas: [0.001]
+krr_gammas: [0.001]
+# rf_nestimators: [100]
+en_alphas: [0.001,0.01,0.1,1,10]
+en_l1ratios: [0.1,0.3,0.5,0.7,0.9]
+krl_k: 10 
+
+# evaluation parameter k in NDCG@k and Precision@k
+# "k_evals" is just for the evaluation of results, not for training KRL/LKRL
+# (we used k_evals: [1,5, 10, 15, 20] in the KRL paper)
+rank_ks: [1,5,10]
+
+###max num of drugs for NDCG full
+k_max: [223,26]
+##
+
+#evaluation metrics
+nfolds_metric: ['NDCG',"precision"]

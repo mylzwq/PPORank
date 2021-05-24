@@ -1,0 +1,66 @@
+# "analysis" takes one of FULL, SAMPLE, KEEPK
+# please note that training KRL and LKRL on relatively dense datasets (FULL and SAMPLE) is very slow and takes days even with using tens of cores for multiprocessing
+# a typical application of KRL assumes sparse data (less than five different treatments recorded per patient, such as in KEEPK)
+analysis: FULL
+# "methods" takes a KRL, LKRL, KBMTL, KRR, RF, EN
+#methods: ['EN','KRR','CaDRRes','KRL','RLPG']
+methods: ['KRR','KRL','CaDRRes','EN']
+# k-fold cross validation
+# (we used cv: 3 in the KRL paper )
+nfolds: 5
+# "data" takes one of GEX, WES, CNV, MET
+data: GDSC_ALL
+tunning: False
+
+Data_All: True
+seed: 1234
+
+f: 80
+
+# ranges of hyper-parameter values optimized using grid search on the training set
+# (see Supplementary data of the KRL paper for details)
+krl_lambdas: [0.001,0.01,0.1]
+krl_gammas: [0.001,0.01,0.1]
+kbmtl_alphas: [0.001]
+kbmtl_betas: [0.001]
+kbmtl_gammas: [0.001]
+krr_alphas: [0.001]
+krr_gammas: [0.001]
+rf_nestimators: [100]
+en_alphas: [0.001,0.01,0.1,1,10]
+en_l1ratios: [0.1,0.3,0.5,0.7,0.9]
+krl_k: 10 
+tunning_params:
+  krl_lambdas: [0.001,0.01,0.1]
+  krl_gammas: [0.001,0.01,0.1]
+  kbmtl_alphas: [0.001,0.01,0.1]
+  kbmtl_betas: [0.001,0.01,0.1]
+  kbmtl_gammas: [0.0001,0.001,0.01]
+  krr_alphas: [0.001,0.01,0.1,1]
+  krr_gammas: [0.0001,0.001,0.01,0.1]
+  rf_nestimators: [100,1000]
+  en_alphas: [0.001,0.01,0.1,1,10]
+  en_l1ratios: [0.1,0.3,0.5,0.7,0.9]
+
+# evaluation parameter k in NDCG@k and Precision@k
+# "rank_ks" is just for the evaluation of results, not for training KRL/LKRL
+# (we used k_evals: [1,5, 10] in the KRL paper, and full rank is k_max)
+rank_ks: [1,5,10]
+
+# Subsampling as described in the KRL paper in Section 4.3 'Prediction using sparse training datasets biased towards effective therapies'
+# (we used keepk: 5 and keepk_ratios: [1.0, 0.5, 0.2, 0.1] )
+keepk: 5
+rank_all: True
+keepk_ratios_G: [1.0, 0.5, 0.1]
+keepk_ratios_C: [1.0, 0.6, 0.3]
+keepk_ratios: [1.0, 0.5, 0.1]
+
+###max num of drugs for NDCG full
+k_max: [265,26]
+single_k: 265
+##
+
+#evaluation metrics
+cv_metric: ['NDCG',"precision"]
+
+Debug: False
